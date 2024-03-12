@@ -32,6 +32,7 @@ export default function Signup() {
       });
 
       const data = await res.json();
+      console.log(data)
       if (data.success === false) {
         setError(data.message);
         setLoading(false);
@@ -55,43 +56,43 @@ export default function Signup() {
 
   return (
     <>
-      <div className="p-3 max-w-lg mx-auto">
-        <h1 className="text-2xl text-center font-semibold my-7 text-gray-700">
+      <div className="max-w-lg p-3 mx-auto">
+        <h1 className="text-2xl font-semibold text-center text-gray-700 my-7">
           فرم ثبت نام
         </h1>
-        <form onSubmit={handleSubmit} className="rtl-form flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 rtl-form">
           <input
             type="text"
             placeholder="نام کاربری"
-            className="border p-3 rounded-lg hover:border-gray-400"
+            className="p-3 border rounded-lg hover:border-gray-400"
             id="username"
             onChange={handleChange}
           />
           <input
             type="text"
             placeholder="ایمیل"
-            className="border p-3 rounded-lg hover:border-gray-400"
+            className="p-3 border rounded-lg hover:border-gray-400"
             id="email"
             onChange={handleChange}
           />
           <input
             type="password"
             placeholder="رمز عبور"
-            className="border p-3 rounded-lg hover:border-gray-400"
+            className="p-3 border rounded-lg hover:border-gray-400"
             id="password"
             onChange={handleChange}
           />
           <button
             disabled={loading}
-            className="bg-green-500 hover:opacity-90 rounded-lg p-3 border font-semibold text-gray-700 disabled:opacity-75"
+            className="p-3 font-semibold text-gray-700 bg-green-500 border rounded-lg hover:opacity-90 disabled:opacity-75"
           >
             {loading ? <span>لطفا منتظر بمانید...</span> : <span>ثبت نام</span>}
           </button>
-          <button className="bg-red-500 hover:opacity-90 rounded-lg p-3 border font-semibold text-gray-700 disabled:opacity-75">
+          <button className="p-3 font-semibold text-gray-700 bg-red-500 border rounded-lg hover:opacity-90 disabled:opacity-75">
             ثبت نام از طریق گوگل
           </button>
         </form>
-        <div className="rtl-form flex gap-2 mt-5 text-xs">
+        <div className="flex gap-2 mt-5 text-xs rtl-form">
           <p>قبلا ثبت نام کرده اید؟</p>
           <Link to="/sign-in">
             <span className="text-blue-700">وارد شوید</span>
