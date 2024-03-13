@@ -8,7 +8,7 @@ export default function Header() {
   const ref = useRef(null);
 
   useOutsideClick(ref, (event) => {
-    event.stopPropagation()
+    event.stopPropagation();
     console.log("recieved");
     setIsMenuOpen(false);
   });
@@ -25,15 +25,17 @@ export default function Header() {
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl  p-3">
         <div className="flex justify-between">
-          <Link to="/sign-in">
-            <a className="hidden lg:inline-block lg:ml-15 lg:mr-2 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200">
-              ورود
-            </a>
+          <Link
+            to="/sign-in"
+            className="hidden lg:inline-block lg:ml-15 lg:mr-2 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+          >
+            ورود
           </Link>
-          <Link to="/sign-up">
-            <a className="hidden lg:inline-block lg:ml-0 py-2 px-6 bg-green-300 hover:bg-green-500 text-sm text-gray-800 font-bold rounded-xl transition duration-200">
-              ثبت نام
-            </a>
+          <Link
+            to="/sign-up"
+            className="hidden lg:inline-block lg:ml-0 py-2 px-6 bg-green-300 hover:bg-green-500 text-sm text-gray-800 font-bold rounded-xl transition duration-200"
+          >
+            ثبت نام
           </Link>
         </div>
         <Link to="/">
@@ -79,53 +81,47 @@ export default function Header() {
             <div>
               <ul>
                 <Link to="/" onClick={closeMenu}>
-                  <li className="mb-1">
-                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
-                      خانه
-                    </a>
+                  <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
+                    خانه
                   </li>
                 </Link>
                 <Link to="/" onClick={closeMenu}>
-                  <li className="mb-1">
-                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
-                      صنایع
-                    </a>
+                  <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
+                    صنایع
                   </li>
                 </Link>
                 <Link to="/" onClick={closeMenu}>
-                  <li className="mb-1">
-                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
-                      خدمات ما
-                    </a>
+                  <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
+                    خدمات ما
                   </li>
                 </Link>
                 <Link to="/" onClick={closeMenu}>
-                  <li className="mb-1">
-                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
-                      معرفی
-                    </a>
+                  <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
+                    معرفی
                   </li>
                 </Link>
                 <Link to="about" onClick={closeMenu}>
-                  <li className="mb-1">
-                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
-                      درباره ما
-                    </a>
+                  <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
+                    درباره ما
                   </li>
                 </Link>
               </ul>
             </div>
             <div className="mt-auto">
               <div className="pt-6">
-                <Link to="/sign-in" onClick={closeMenu}>
-                  <a className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-50 hover:bg-gray-100 rounded-xl">
-                    ورود
-                  </a>
+                <Link
+                  to="/sign-in"
+                  onClick={closeMenu}
+                  className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-50 hover:bg-gray-100 rounded-xl"
+                >
+                  ورود
                 </Link>
-                <Link to="/sign-up" onClick={closeMenu}>
-                  <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-gray-800 font-semibold bg-green-300 hover:bg-green-500  rounded-xl">
-                    ثبت نام
-                  </a>
+                <Link
+                  to="/sign-up"
+                  onClick={closeMenu}
+                  className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-gray-800 font-semibold bg-green-300 hover:bg-green-500  rounded-xl"
+                >
+                  ثبت نام
                 </Link>
               </div>
               <p className="my-4 text-xs text-center text-gray-400">
@@ -152,38 +148,28 @@ export default function Header() {
           </div>
           <ul className="hidden absolute transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:items-center lg:w-auto lg:space-x-8 lg:mr-0">
             <Link to="/about">
-              <li>
-                <a className="text-sm text-gray-700 hover:text-gray-950 whitespace-nowrap hover:font-semibold">
-                  درباره ما
-                </a>
+              <li className="text-sm text-gray-700 hover:text-gray-950 whitespace-nowrap hover:font-semibold">
+                درباره ما
               </li>
             </Link>
             <Link to="/">
-              <li>
-                <a className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
-                  معرفی
-                </a>
+              <li className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
+                معرفی
               </li>
             </Link>
             <Link to="/">
-              <li>
-                <a className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
-                  خدمات
-                </a>
+              <li className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
+                خدمات
               </li>
             </Link>
             <Link to="/">
-              <li>
-                <a className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
-                  صنایع
-                </a>
+              <li className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
+                صنایع
               </li>
             </Link>
             <Link to="/">
-              <li>
-                <a className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
-                  خانه
-                </a>
+              <li className="text-sm text-gray-700 hover:text-gray-950 hover:font-semibold">
+                خانه
               </li>
             </Link>
           </ul>

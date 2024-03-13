@@ -32,7 +32,6 @@ export default function Signup() {
       });
 
       const data = await res.json();
-      console.log(data)
       if (data.success === false) {
         setError(data.message);
         setLoading(false);
@@ -42,10 +41,8 @@ export default function Signup() {
       setDataSaved(true);
       setLoading(false);
       setError(null);
+      e.target.reset();
       // navigate("/sign-in");
-      console.log(
-        `dataSaved: ${dataSaved}, loading: ${loading}, error: ${error}`
-      );
     } catch (err) {
       setLoading(false);
       setError(err.message);
@@ -100,9 +97,19 @@ export default function Signup() {
         </div>
       </div>
       {dataSaved && (
-        <Alert severity="success" color="success">
-          This is a success Alert with an encouraging title.
-        </Alert>
+        <div className="rtl-form">
+          <Alert
+            sx={{
+              fontFamily: "Tahoma",
+            }}
+            variant="outlined"
+            severity="success"
+            color="success"
+            className="float-right mr-4 gap-2"
+          >
+            کاربر با موفقیت ایجاد شد
+          </Alert>
+        </div>
       )}
     </>
   );
