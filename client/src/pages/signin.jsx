@@ -8,6 +8,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function Signin() {
   const [formData, setFormData] = useState({});
@@ -80,6 +81,7 @@ export default function Signin() {
           >
             {loading ? <span>لطفا منتظر بمانید...</span> : <span>ورود</span>}
           </button>
+          <OAuth />
         </form>
         <div className="flex gap-2 mt-5 text-xs rtl-form">
           <p>قبلا ثبت نام نکرده اید؟</p>

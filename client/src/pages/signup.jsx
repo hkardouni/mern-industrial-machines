@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
+import OAuth from "../components/OAuth";
 
 export default function Signup() {
   const [formData, setFormData] = useState({});
@@ -85,9 +86,7 @@ export default function Signup() {
           >
             {loading ? <span>لطفا منتظر بمانید...</span> : <span>ثبت نام</span>}
           </button>
-          <button className="p-3 font-semibold text-gray-700 bg-red-500 border rounded-lg hover:opacity-90 disabled:opacity-75">
-            ثبت نام از طریق گوگل
-          </button>
+          <OAuth />
         </form>
         <div className="flex gap-2 mt-5 text-xs rtl-form">
           <p>قبلا ثبت نام کرده اید؟</p>
