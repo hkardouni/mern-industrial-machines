@@ -2,12 +2,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 export default function Signin() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const {loading, error} = useSelector((state) => state.user)
   const [successLogin, setSuccessLogin] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -21,7 +27,7 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart())
 
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -33,21 +39,17 @@ export default function Signin() {
 
       const data = await res.json();
       if (data.success === false) {
-        setError(data.message);
-        setLoading(false);
-        console.log(error);
+        dispatch(signInFailure(data.message))
         return;
       }
       setSuccessLogin(true);
-      setLoading(false);
-      setError(null);
+      dispatch(signInSuccess(data))
       e.target.reset();
       navigate("/");
     } catch (err) {
-      setLoading(false);
-      setError(err.message);
+      dispatch(signInFailure(err.message))
       setSuccessLogin(false);
-      console.log(error);
+      
     }
   };
 
@@ -97,7 +99,7 @@ export default function Signin() {
             color="success"
             className="float-right mr-4 gap-2"
           >
-            کاربر با موفقیت ایجاد شد
+            ورود موفق
           </Alert>
         </div>
       ) : (
