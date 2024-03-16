@@ -71,7 +71,7 @@ export default function Header() {
           ref={ref}
         >
           <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
-          <nav className="fixed top-0 right-0 bottom-0 flex flex-col w-5/6 max-w-xs py-6 px-6 bg-white border-l overflow-x-hidden transition-all">
+          <nav className="fixed top-0 right-0 bottom-0 flex flex-col w-2/4 max-w-xs py-6 px-6 bg-white border-l overflow-x-hidden transition-all">
             <div className="flex items-center mb-8">
               <button className="navbar-close" onClick={closeMenu}>
                 {/* navbar close buttom */}
@@ -147,7 +147,15 @@ export default function Header() {
                     ثبت نام
                   </Link>
                 </div>
-              ) : null}
+              ) : (
+                <Link
+                    to="/sign-up"
+                    onClick={closeMenu}
+                    className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-gray-800 font-semibold bg-red-400 hover:opacity-90 rounded-xl"
+                  >
+                    خروج
+                  </Link>
+              )}
 
               <p className="my-4 text-xs text-center text-gray-400">
                 <span>Copyright © 2024</span>
