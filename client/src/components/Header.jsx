@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useOutsideClick from "./useOutsideClick";
+import { useSelector } from "react-redux";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const ref = useRef(null);
 
+  const { currentUser } = useSelector((state) => state.user);
   useOutsideClick(ref, (event) => {
     event.stopPropagation();
     console.log("recieved");
@@ -24,20 +26,31 @@ export default function Header() {
   return (
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl  p-3">
-        <div className="flex justify-between">
-          <Link
-            to="/sign-in"
-            className="hidden lg:inline-block lg:ml-15 lg:mr-2 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-          >
-            ورود
+        {currentUser ? (
+          <Link to="/profile">
+            <img
+              className="rounded-full h-7 w-7 object-cover"
+              src={currentUser.avatar}
+              alt="profile"
+            />
           </Link>
-          <Link
-            to="/sign-up"
-            className="hidden lg:inline-block lg:ml-0 py-2 px-6 bg-green-300 hover:bg-green-500 text-sm text-gray-800 font-bold rounded-xl transition duration-200"
-          >
-            ثبت نام
-          </Link>
-        </div>
+        ) : (
+          <div className="flex justify-between">
+            <Link
+              to="/sign-in"
+              className="hidden lg:inline-block lg:ml-15 lg:mr-2 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+            >
+              ورود
+            </Link>
+            <Link
+              to="/sign-up"
+              className="hidden lg:inline-block lg:ml-0 py-2 px-6 bg-green-300 hover:bg-green-500 text-sm text-gray-800 font-bold rounded-xl transition duration-200"
+            >
+              ثبت نام
+            </Link>
+          </div>
+        )}
+
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="text-slate-500">Industrial</span>
@@ -79,6 +92,15 @@ export default function Header() {
               </button>
             </div>
             <div>
+              {currentUser && (
+                <Link to="/profile" onClick={closeMenu}>
+                  <img
+                    className="rtl-form rounded-full mx-auto mb-4"
+                    src={currentUser.avatar}
+                    alt="profile"
+                  />
+                </Link>
+              )}
               <ul>
                 <Link to="/" onClick={closeMenu}>
                   <li className="mb-1 block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-gray-700 rounded cursor-pointer">
@@ -108,22 +130,25 @@ export default function Header() {
               </ul>
             </div>
             <div className="mt-auto">
-              <div className="pt-6">
-                <Link
-                  to="/sign-in"
-                  onClick={closeMenu}
-                  className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-50 hover:bg-gray-100 rounded-xl"
-                >
-                  ورود
-                </Link>
-                <Link
-                  to="/sign-up"
-                  onClick={closeMenu}
-                  className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-gray-800 font-semibold bg-green-300 hover:bg-green-500  rounded-xl"
-                >
-                  ثبت نام
-                </Link>
-              </div>
+              {!currentUser ? (
+                <div className="pt-6">
+                  <Link
+                    to="/sign-in"
+                    onClick={closeMenu}
+                    className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-50 hover:bg-gray-100 rounded-xl"
+                  >
+                    ورود
+                  </Link>
+                  <Link
+                    to="/sign-up"
+                    onClick={closeMenu}
+                    className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-gray-800 font-semibold bg-green-300 hover:bg-green-500  rounded-xl"
+                  >
+                    ثبت نام
+                  </Link>
+                </div>
+              ) : null}
+
               <p className="my-4 text-xs text-center text-gray-400">
                 <span>Copyright © 2024</span>
               </p>
