@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+import { Alert, Collapse } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
@@ -106,6 +106,7 @@ export default function Signin() {
         </div>
       ) : (
         <div className="rtl-form">
+          <Collapse>
           <Alert
             sx={{
               fontFamily: "Tahoma",
@@ -117,6 +118,7 @@ export default function Signin() {
           >
             ورود ناموفق. لطفا مجددا تلاش کنید
           </Alert>
+          </Collapse>
         </div>
       )}
     </>

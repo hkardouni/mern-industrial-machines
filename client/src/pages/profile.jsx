@@ -1,7 +1,16 @@
-"use client";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import { Alert, Collapse, IconButton } from "@mui/material";
+import { Fragment, useEffect, useRef, useState } from "react";
+import {
+  Alert,
+  Button,
+  Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+} from "@mui/material";
 // import CloseIcon from '@mui/icons-material'
 import {
   getDownloadURL,
@@ -14,6 +23,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 export default function Profile() {
@@ -25,7 +37,8 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const [updateStatus, setUpdateStatus] = useState(false);
   const [error, setError] = useState(null);
-  
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (file) {
@@ -84,21 +97,51 @@ export default function Profile() {
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         setUpdateStatus(false);
-        setOpenAlert(true);
+        
         setError(data.message);
         return;
       }
 
       setUpdateStatus(true);
-      setOpenAlert(true);
+      
 
       dispatch(updateUserSuccess(data));
     } catch (error) {
       dispatch(updateUserFailure(error.message));
+
       setUpdateStatus(false);
-      setOpenAlert(true);
+      
       setError(error.message);
     }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    setDeleteConfirmation(true);
+  };
+
+  const handleCloseConfirmation = () => {
+    setDeleteConfirmation(false);
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -151,31 +194,59 @@ export default function Profile() {
           className="rtl-form border p-3 rounded-lg"
           onChange={handleChange}
         />
-        <button disabled={loading} className="bg-green-500 rounded-lg p-3 text-gray-800 font-semibold hover:opacity-90 disabled:opacity-75">
-          {
-            loading? 'درحال بروزرسانی...' : 'ثبت تغییرات'
-          }
+        <button
+          disabled={loading}
+          className="bg-green-500 rounded-lg p-3 text-gray-800 font-semibold hover:opacity-90 disabled:opacity-75"
+        >
+          {loading ? "درحال بروزرسانی..." : "ثبت تغییرات"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">حذف حساب</span>
+        <span
+          onClick={handleConfirmDelete}
+          className="text-red-700 cursor-pointer"
+        >
+          حذف حساب
+        </span>
         <span className="text-red-700 cursor-pointer">خروج</span>
       </div>
+      <Fragment>
+        <Dialog
+          sx={{
+            fontFamily: "inherit",
+          }}
+          open={deleteConfirmation}
+          onClose={handleCloseConfirmation}
+          aria-describedby="delete-confirm"
+        >
+          <DialogContent>
+            <DialogContentText id="delete-confirm">
+              آیا از حذف حساب کاربری خود اطمینان دارید؟
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDeleteUser}>بله</Button>
+            <Button onClick={handleCloseConfirmation} autoFocus>
+              خیر
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
       {updateStatus ? (
         <div className="flex flex-col items-center">
-            <Alert
-              sx={{
-                fontFamily: "Tahoma",
-              }}
-              variant="outlined"
-              severity="success"
-              color="success"
-              className="float-right mr-4 gap-2"
-            >
-              تغییرات با موفقیت اعمال شد
-            </Alert>
+          <Alert
+            sx={{
+              fontFamily: "Tahoma",
+            }}
+            variant="outlined"
+            severity="success"
+            color="success"
+            className="float-right mr-4 gap-2"
+          >
+            تغییرات با موفقیت اعمال شد
+          </Alert>
         </div>
-      ) : (
+      ) : (error !== null) ? (
         <div className="rtl-form flex flex-col items-center">
           <Alert
             sx={{
@@ -189,7 +260,7 @@ export default function Profile() {
             {`تغییرات با خطا مواجه شد: ${error}`}
           </Alert>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
