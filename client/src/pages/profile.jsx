@@ -26,6 +26,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutStart,
+  signInFailure,
+  signOutSuccess,
 } from "../redux/user/userSlice";
 
 export default function Profile() {
@@ -143,6 +146,23 @@ export default function Profile() {
   const handleCloseConfirmation = () => {
     setDeleteConfirmation(false);
   };
+
+  const handleSignout = async () => {
+    try {
+      dispatch(signOutStart())
+      const res = await fetch('/api/user/signout')
+      const data = await res.json()
+
+      if (data.success === false) {
+        dispatch(signInFailure(data.message))
+        return
+      }
+
+      dispatch(signOutSuccess(data))
+    } catch (error) {
+      dispatch(signInFailure(error))
+    }
+  }
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">پروفایل</h1>
@@ -208,7 +228,7 @@ export default function Profile() {
         >
           حذف حساب
         </span>
-        <span className="text-red-700 cursor-pointer">خروج</span>
+        <span onClick={handleSignout} className="text-red-700 cursor-pointer">خروج</span>
       </div>
       <Fragment>
         <Dialog
