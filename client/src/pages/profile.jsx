@@ -92,7 +92,7 @@ export default function Profile() {
           className="rtl-form border p-3 rounded-lg"
         />
         <button className="bg-green-500 rounded-lg p-3 text-gray-800 font-semibold hover:opacity-90 disabled:opacity-75">
-          بروز رسانی
+          ثبت تغییرات
         </button>
       </form>
       <div className="flex justify-between mt-5">
