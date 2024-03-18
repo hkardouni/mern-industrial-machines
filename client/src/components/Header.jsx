@@ -11,7 +11,7 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   useOutsideClick(ref, (event) => {
     event.stopPropagation();
-    console.log("recieved");
+    // console.log("recieved");
     setIsMenuOpen(false);
   });
 

@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useRef, useState } from "react";
 import {
@@ -11,6 +10,7 @@ import {
   DialogContentText,
   IconButton,
 } from "@mui/material";
+import ShowConfirmation from "../components/showConfirmation";
 // import CloseIcon from '@mui/icons-material'
 import {
   getDownloadURL,
@@ -100,20 +100,19 @@ export default function Profile() {
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         setUpdateStatus(false);
-        
+
         setError(data.message);
         return;
       }
 
       setUpdateStatus(true);
-      
 
       dispatch(updateUserSuccess(data));
     } catch (error) {
       dispatch(updateUserFailure(error.message));
 
       setUpdateStatus(false);
-      
+
       setError(error.message);
     }
   };
@@ -149,20 +148,20 @@ export default function Profile() {
 
   const handleSignout = async () => {
     try {
-      dispatch(signOutStart())
-      const res = await fetch('/api/auth/signout')
-      const data = await res.json()
+      dispatch(signOutStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
 
       if (data.success === false) {
-        dispatch(signInFailure(data.message))
-        return
+        dispatch(signInFailure(data.message));
+        return;
       }
 
-      dispatch(signOutSuccess(data))
+      dispatch(signOutSuccess(data));
     } catch (error) {
-      dispatch(signInFailure(error))
+      dispatch(signInFailure(error));
     }
-  }
+  };
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">پروفایل</h1>
@@ -228,30 +227,16 @@ export default function Profile() {
         >
           حذف حساب
         </span>
-        <span onClick={handleSignout} className="text-red-700 cursor-pointer">خروج</span>
+        <span onClick={handleSignout} className="text-red-700 cursor-pointer">
+          خروج
+        </span>
       </div>
-      <Fragment>
-        <Dialog
-          sx={{
-            fontFamily: "inherit",
-          }}
-          open={deleteConfirmation}
-          onClose={handleCloseConfirmation}
-          aria-describedby="delete-confirm"
-        >
-          <DialogContent>
-            <DialogContentText id="delete-confirm">
-              آیا از حذف حساب کاربری خود اطمینان دارید؟
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDeleteUser}>بله</Button>
-            <Button onClick={handleCloseConfirmation} autoFocus>
-              خیر
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Fragment>
+      <ShowConfirmation
+        message="آیا از حذف حساب کاربری خود اطمینان دارید؟"
+        onCancel={handleCloseConfirmation}
+        onConfirm={handleDeleteUser}
+        isOpen={deleteConfirmation}
+      />
       {updateStatus ? (
         <div className="flex flex-col items-center">
           <Alert
@@ -266,7 +251,7 @@ export default function Profile() {
             تغییرات با موفقیت اعمال شد
           </Alert>
         </div>
-      ) : (error !== null) ? (
+      ) : error !== null ? (
         <div className="rtl-form flex flex-col items-center">
           <Alert
             sx={{
