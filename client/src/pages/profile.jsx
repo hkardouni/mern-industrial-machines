@@ -30,6 +30,7 @@ import {
   signInFailure,
   signOutSuccess,
 } from "../redux/user/userSlice";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -219,6 +220,9 @@ export default function Profile() {
         >
           {loading ? "درحال بروزرسانی..." : "ثبت تغییرات"}
         </button>
+        <Link className="bg-gray-500 text-white text-center p-3 rounded-lg font-semibold hover:opacity-90" to='/create-listing'>
+          ثبت آگهی جدید
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
