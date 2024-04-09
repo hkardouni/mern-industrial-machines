@@ -11,3 +11,17 @@ export const createIndustry = async (req, res, next) => {
     }
 }
 
+export const updateIndustry = async (req,res, next) => {
+    try {
+        const updatedIndustry = await Industry.findByIdAndUpdate(req.params.id, {
+            $set: {
+                name: req.body.name
+            }
+        }, {new: true})
+
+        const {...rest} = updatedIndustry._doc
+        res.status(200).json(rest)
+    } catch (error) {
+        next(error)
+    }
+}
