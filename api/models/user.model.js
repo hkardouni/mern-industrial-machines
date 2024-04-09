@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAd5avdba8EiOZH8lmV3XshrXx7dKRZvhx-A&usqp=CAU'
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 },
     {
