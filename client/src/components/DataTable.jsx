@@ -14,6 +14,8 @@ export default function DataTable({rows, handleSelectRow}) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
+    const lable = 'تعداد در هر صفحه'
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
@@ -67,6 +69,7 @@ export default function DataTable({rows, handleSelectRow}) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage={lable}
       />
       </>
   )
