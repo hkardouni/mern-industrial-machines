@@ -13,9 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.13",
-    "@mui/material": "^5.15.12",
+    "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^2.2.1",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.6.0",

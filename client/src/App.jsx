@@ -8,6 +8,7 @@ import Profile from "./pages/profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
+import CreateIndustry from "./components/CreateIndustry";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-listing" element={<CreateListing />} />
+          <Route path="/create-industry" element={<CreateIndustry />} />
         </Route>
       </Routes>
     </BrowserRouter>
