@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Industry from "./industry.model";
+import Industry from "./industry.model.js";
 
 const machineFunctionalitySchema = mongoose.Schema({
     name: {

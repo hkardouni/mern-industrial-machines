@@ -5,6 +5,7 @@ import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
 import listingRouter from './routes/listing.route.js'
 import industriesRouter from './routes/industry.route.js'
+import functionalitiesRouter from './routes/functionality.route.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/listing', listingRouter)
 app.use('/api/industries', industriesRouter)
+app.use('/api/functionalities', functionalitiesRouter)
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500

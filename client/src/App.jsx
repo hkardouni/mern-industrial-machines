@@ -8,7 +8,7 @@ import Profile from "./pages/profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
-import CreateIndustry from "./components/CreateIndustry";
+import CreateIndustry from "./pages/CreateIndustry";
 
 export default function App() {
   return (
