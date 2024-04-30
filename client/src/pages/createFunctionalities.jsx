@@ -4,14 +4,20 @@ import DataTable from "../components/DataTable";
 export default function CreateFunctionalities() {
   const [functionalities, setFunctionalities] = useState([]);
   const [industries, setIndustries] = useState([]);
+  const [industryMapping, setIndustryMapping] = useState({})
   const [selectedFunctionality, setSelectedFunctionality] = useState(null);
   const [formData, setFormData] = useState({ name: "", industry: "" });
   const [cancelEdit, setCancelEdit] = useState(false)
 
   const fetchIndustries = async () => {
-    fetch("/api/industries/all")
-      .then((response) => response.json())
-      .then((data) => setIndustries(data));
+    const response = await fetch("/api/industries/all")
+    const data = await response.json()
+    setIndustries(data)
+      const mapping = data.reduce((acc, current) => ({
+        ...acc,
+        [current._id]: current.name,
+      }), {});
+      setIndustryMapping(mapping);
   };
 
   const fetchFunctionalities = async () => {
@@ -106,7 +112,7 @@ export default function CreateFunctionalities() {
         </div>
       </form>
       <div className="rtl-form">
-        <DataTable rows={functionalities} handleSelectRow={handleSelectedRow} />
+        <DataTable rows={functionalities} handleSelectRow={handleSelectedRow} dependency='صنعت' dependencyType='industry' industryMapping={industryMapping}/>
       </div>
     </main>
   );

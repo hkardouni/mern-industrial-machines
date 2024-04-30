@@ -1,33 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import {
-    TableContainer,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    TablePagination,
-  } from "@mui/material";
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TablePagination,
+} from "@mui/material";
 
-export default function DataTable({rows, handleSelectRow}) {
-    
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+export default function DataTable({
+  rows,
+  handleSelectRow,
+  dependency,
+  dependencyType,
+  industryMapping
+}) {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-    const lable = 'تعداد در هر صفحه'
+  const lable = "تعداد در هر صفحه";
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-      };
-    
-      const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-      };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
     <>
-    <div className="rtl-form">
+      <div className="rtl-form">
         <TableContainer
           sx={{
             width: "100%",
@@ -41,6 +46,7 @@ export default function DataTable({rows, handleSelectRow}) {
             <TableHead>
               <TableRow>
                 <TableCell>نام</TableCell>
+                <TableCell>{dependency}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -55,6 +61,9 @@ export default function DataTable({rows, handleSelectRow}) {
                     onClick={() => handleSelectRow(row)}
                   >
                     <TableCell>{row.name}</TableCell>
+                    {dependency ? (
+                      <TableCell>{industryMapping[row[dependencyType]]}</TableCell>
+                    ) : null}
                   </TableRow>
                 ))}
             </TableBody>
@@ -71,6 +80,6 @@ export default function DataTable({rows, handleSelectRow}) {
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage={lable}
       />
-      </>
-  )
+    </>
+  );
 }
